@@ -8,7 +8,7 @@ public class RSSReader
 
 	public static void main(String[] args) 
 	{
-		System.out.println(readRSS("http://feeds.bbci.co.uk/news/rss.xml"));
+		System.out.println(readRSS("http://feeds.bbci.co.uk/news/politics/rss.xml"));
 
 	}
 	public static String readRSS(String urlAddress)
@@ -21,12 +21,12 @@ public class RSSReader
 	String line;
 	while((line=in.readLine())!=null)
 	{
-		if(line.contains("<title>"))
+		if(line.contains("<title><![CDATA["))
 		{
-			int firstPos=line.indexOf("<title>");
+			int firstPos=line.indexOf("<title><![CDATA[");
 			String temp=line.substring(firstPos);
-			temp=temp.replace("<title>", "");
-			int lastPos=temp.indexOf("</title>");
+			temp=temp.replace("<title><![CDATA[", "");
+			int lastPos=temp.indexOf("]]></title>");
 			temp=temp.substring(0,lastPos);
 			sourceCode +=temp+"\n";
 		}
